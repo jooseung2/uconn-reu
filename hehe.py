@@ -38,7 +38,7 @@ fixed_V0 = dot(V1, p) - fixed_xi_1 * dot(delta_S1, p)
 
 # compute L1 from follmer schweizer decomposition
 fixed_L1 = [v1 - fixed_V0 - fixed_xi_1 * dS1 for (v1, dS1) in zip(V1, delta_S1)]
-fixed_E_L1 = dot(L1, p)
+fixed_E_L1 = dot(fixed_L1, p)
 
 
 """
@@ -72,24 +72,23 @@ ax = plt.axes(projection="3d")
 Plot Expectation of L_1
 """
 
-# xdata, ydata, e_l1 = zip(*residual)
-# ax.scatter3D(xdata, ydata, e_l1, c=e_l1, cmap='viridis')
+xdata, ydata, e_l1 = zip(*residual)
+p = ax.scatter3D(xdata, ydata, e_l1, c=e_l1, cmap='viridis')
 
-# ax.set_xlabel('p1')
-# ax.set_ylabel('p2')
-# ax.set_zlabel('E[L1]')
+ax.set_xlabel('p1')
+ax.set_ylabel('p2')
+ax.set_zlabel('E[L1]')
 
 """
 Plot Fair Time-zero option price
 """
 
-xdata, ydata, v0 = zip(*fairTimeZeroPrice)
-p = ax.scatter3D(xdata, ydata, v0, c=v0, cmap="viridis")
+# xdata, ydata, v0 = zip(*fairTimeZeroPrice)
+# p = ax.scatter3D(xdata, ydata, v0, c=v0, cmap="viridis")
+
+# ax.set_xlabel("p1")
+# ax.set_ylabel("p2")
+# ax.set_zlabel("optimal V0")
+
 fig.colorbar(p)
-
-ax.set_xlabel("p1")
-ax.set_ylabel("p2")
-ax.set_zlabel("optimal V0")
-
-
 plt.show()
